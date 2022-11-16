@@ -4,6 +4,7 @@
 void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valor){
     matriz[posicaoLinha][posicaoColuna].valor = valor;
     matriz[posicaoLinha][posicaoColuna].somaMinima = 0; 
+    matriz[posicaoLinha][posicaoColuna].qtdCaminhos = 0; 
     matriz[posicaoLinha][posicaoColuna].posicaoLinha = posicaoLinha+1;
     matriz[posicaoLinha][posicaoColuna].posicaoColuna = posicaoColuna+1;
     matriz[posicaoLinha][posicaoColuna].direcao = 'x';
@@ -37,6 +38,23 @@ void printaSoma(Celula **matriz, int linhas, int colunas){
             }
             else{
                 printf("%d ", matriz[i][j].somaMinima);
+            }
+        } 
+    }
+    printf("\n"); 
+}
+
+void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
+    int i, j;
+    for ( i = 0; i < linhas; i++){
+        printf("\n");
+        for ( j = 0; j < colunas; j++){
+            printf("%s", matriz[i][j].cor);
+            if (matriz[i][j].qtdCaminhos >= 0 && matriz[i][j].qtdCaminhos  < 10){
+                printf(" %d ", matriz[i][j].qtdCaminhos );
+            }
+            else{
+                printf("%d ", matriz[i][j].qtdCaminhos);
             }
         } 
     }
