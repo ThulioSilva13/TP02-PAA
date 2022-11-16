@@ -11,9 +11,9 @@
 #define ANSI_COLOR_GREEN "\033[1;32m"
 #define ANSI_COLOR_CYAN "\033[1;36m"
 
-typedef struct Celula *TipoApontador;
 typedef struct Celula{
     int valor;
+    int somaMinima;
     int posicaoLinha;
     int posicaoColuna;
     char direcao; 
@@ -22,6 +22,8 @@ typedef struct Celula{
 
 void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valor);
 void printaMatriz(Celula **matriz, int linhas, int colunas);
+void printaSoma(Celula **matriz, int linhas, int colunas);
+void printaDirecao(Celula **matriz, int linhas, int colunas);
 Celula **inicializaMatriz(Celula **matriz, int linhas, int colunas);
 
 #endif
