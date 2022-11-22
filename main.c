@@ -59,10 +59,10 @@ int main(int argc, char **argv)
 
             printf("\n\nQuantidade Caminhos = %d\n", qtdCaminhos(matriz, numLinhas, numColunas));
 
-            printaSoma(matriz,numLinhas,numColunas);
+            //printaSoma(matriz,numLinhas,numColunas);
             //printaDirecao(matriz,numLinhas,numColunas);
-            printaQtdCaminhos(matriz,numLinhas,numColunas);
-
+            //printaQtdCaminhos(matriz,numLinhas,numColunas);
+            //printaMatrizVisitado(matriz,numLinhas,numColunas);
             
         default:
             break;

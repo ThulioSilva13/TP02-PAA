@@ -1,12 +1,13 @@
 #include "progDinamica.h"
-
+#include <time.h>
 int somaMinima(Celula **matriz, int numLinhas, int numColunas){
     // achar soma mínima (Germano falou que essa parte é mais fácil fazendo iterativo)
 
     // começar da posição onde quer chegar => de tras pra frente
     // se desceria, olho pra cima
     // se iria pra direita, olho pela esquerda
-
+    clock_t inicio = clock();
+    double tempo = 0.0;
     bool verificaCima;
     bool verificaEsquerda;
 
@@ -29,7 +30,7 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
                 }
                 else{
                     if (matriz[i-1][j].somaMinima > matriz[i-1][j].valor + matriz[i][j].somaMinima){
-                        matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
+                        matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima; 
                         matriz[i-1][j].direcao = 'b';
                     }
 
@@ -56,108 +57,18 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
                     }
                     
                 }
+                matriz[i][j].visitado = true;
             }
-
-            
-            // if (verificaCima == true && verificaEsquerda == true){ 
-
-            //     // pra cima
-            //     if (matriz[i-1][j].somaMinima == 0){
-            //         matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-            //     }
-            //     else{
-            //         if (matriz[i-1][j].somaMinima > matriz[i-1][j].valor + matriz[i][j].somaMinima){
-            //             matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-            //         }
-            //     }
-                
-
-            //     //pra esquerda
-            //     if (matriz[i][j-1].somaMinima == 0){
-            //         matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-            //     }
-            //     else{
-            //         if (matriz[i][j-1].somaMinima > matriz[i][j-1].valor + matriz[i][j].somaMinima){
-            //             matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-            //         }
-            //     }
-            // }
-
-            // else if (verificaCima == true && verificaEsquerda == false){
-            //     // pra cima
-            //     if (matriz[i-1][j].somaMinima == 0){
-            //         matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-            //     }
-            //     else{
-            //         if (matriz[i-1][j].somaMinima > matriz[i-1][j].valor + matriz[i][j].somaMinima){
-            //             matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-            //         }
-            //     }
-            // }
-
-            // else {
-            //     //pra esquerda
-            //     if (matriz[i][j-1].somaMinima == 0){
-            //         matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-            //     }
-            //     else{
-            //         if (matriz[i][j-1].somaMinima > matriz[i][j-1].valor + matriz[i][j].somaMinima){
-            //             matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-            //         }
-            //     }
-            // }
-
-                
-
-        //         //matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-        //        // matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-
-        //         if (matriz[i-1][j].valor > matriz[i][j-1].valor){
-        //             //se pra esquerda for menor
-        //             //esquerda = valor dele + minimo atual
-        //             if(matriz[i][j-1].somaMinima > matriz[i][j-1].valor + matriz[i][j].somaMinima
-        //                 && matriz[i][j-1].somaMinima != 0)
-        //             {
-        //                 matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-        //                 matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-        //             }
-        //         }
-        //         else{
-                    
-        //             //se pra cima for menor
-        //             //cima = valor dele + minimo atual
-        //             if(matriz[i-1][j].somaMinima > matriz[i-1][j].valor + matriz[i][j].somaMinima
-        //                  && matriz[i-1][j].somaMinima != 0)
-        //             {
-        //                 matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-        //                 matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-        //             } 
-        //         }
-        //     } 
-
-        //     if (verificaCima == true && verificaEsquerda == false){
-        //         if(matriz[i-1][j].somaMinima > matriz[i-1][j].valor + matriz[i][j].somaMinima
-        //              && matriz[i-1][j].somaMinima != 0)
-        //         {
-        //             matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-        //             matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-        //         } 
-        //     }
-
-        //     if (verificaCima == false && verificaEsquerda == true){
-        //         if(matriz[i][j-1].somaMinima > matriz[i][j-1].valor + matriz[i][j].somaMinima
-        //              && matriz[i][j-1].somaMinima != 0)
-        //         {
-        //             matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-        //             matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-        //         }  
-        //     }
-        // }
+        
         }
     }
-
+    clock_t fim = clock();
+    tempo += (double)(fim - inicio) / CLOCKS_PER_SEC;
+    printf("\n");
+    printf("Tempo de execução: %f", tempo);
     return matriz[0][0].somaMinima;
 }
+ 
 
 int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
 
@@ -169,36 +80,39 @@ int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
                 matriz[i][j].qtdCaminhos = 1;
             }
 
-            //se está na ultima linha só tem como vim da direita
+            //se está na ultima linha só tem como vir da direita
             //entao a qtd de caminhos pra chegar nela é a qtd de caminhos pra chegar na da direita
+           
             else if (i==numLinhas-1 && j!=numColunas-1){
                 matriz[i][j].qtdCaminhos += matriz[i][j+1].qtdCaminhos;
             }
 
-            //se está na ultima coluna só tem como vim de baixo
+            //se está na ultima coluna só tem como vir de baixo
             //entao a qtd de caminhos pra chegar nela é a qtd de caminhos pra chegar na de baixo
             else if (i!=numLinhas-1 && j==numColunas-1){
                 matriz[i][j].qtdCaminhos += matriz[i+1][j].qtdCaminhos;
             }
 
-            //se tem como vim da direita e de baixo
+            //se tem como vir da direita e de baixo
             else{
-                //se o custo de vim de baixo for o mesmo que vim de cima 
+                //se o custo de vir de baixo for o mesmo que vir de cima 
                 //a qtd de caminhos pra chegar é a qtd de caminhos pra chegar na de baixo + qtd de caminhos pra chegar na de cima
                 if (matriz[i][j+1].somaMinima == matriz[i+1][j].somaMinima){
-                    matriz[i][j].qtdCaminhos = matriz[i][j+1].qtdCaminhos + matriz[i+1][j].qtdCaminhos; 
+                    matriz[i][j].qtdCaminhos = matriz[i][j+1].qtdCaminhos + matriz[i+1][j].qtdCaminhos;
                 }
-                //se o custo de vim da esquerda for maior de o de vim de baixo
+                //se o custo de vir da esquerda for maior de o de vir de baixo
                 //a qtd de caminhos pra chegar com custo mínimo é qtd de caminhos pra chegar na de baixo
-                //pois pra ter o custo mínimo tem que vim por ela
+                //pois pra ter o custo mínimo tem que vir por ela
                 else if (matriz[i][j+1].somaMinima > matriz[i+1][j].somaMinima){
                     matriz[i][j].qtdCaminhos = matriz[i+1][j].qtdCaminhos;
+                   
                 }
-                //se o custo de vim da esquerda for menor de o de vim de baixo
+                //se o custo de vir da esquerda for menor de o de vir de baixo
                 //a qtd de caminhos pra chegar com custo mínimo é qtd de caminhos pra chegar na daa esquerda
-                //pois para ter o custo mínimo tem que vim por ela
+                //pois para ter o custo mínimo tem que vir por ela
                 else{
                     matriz[i][j].qtdCaminhos = matriz[i][j+1].qtdCaminhos; 
+                   
                 }
             }  
         }

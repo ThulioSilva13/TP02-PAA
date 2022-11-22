@@ -8,6 +8,7 @@ void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valo
     matriz[posicaoLinha][posicaoColuna].posicaoLinha = posicaoLinha+1;
     matriz[posicaoLinha][posicaoColuna].posicaoColuna = posicaoColuna+1;
     matriz[posicaoLinha][posicaoColuna].direcao = 'x';
+    matriz[posicaoLinha][posicaoColuna].visitado = false;
     strcpy(matriz[posicaoLinha][posicaoColuna].cor, ANSI_COLOR_DEFAULT);
 }
 
@@ -60,6 +61,21 @@ void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
     }
     printf("\n"); 
 }
+
+ void printaMatrizVisitado(Celula **matriz,int linhas,int colunas){
+    int i,j;
+    for(i = 0; i < linhas; i++)
+    {
+        for(j = 0; j < colunas; j++)
+        {
+            if (matriz[i][j].visitado == true)
+            {
+                printf("Posicoes do vetor: %d - %d\n", matriz[i][j].posicaoLinha, matriz[i][j].posicaoColuna);
+            }
+            
+        }
+    }
+ }
 
 void printaDirecao(Celula **matriz, int linhas, int colunas){
     int i, j;

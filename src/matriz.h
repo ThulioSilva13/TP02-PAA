@@ -17,6 +17,7 @@ typedef struct Celula{
     int qtdCaminhos;
     int posicaoLinha;
     int posicaoColuna;
+    bool visitado;
     char direcao; 
     char cor[12];
 }Celula;
@@ -26,7 +27,7 @@ void printaMatriz(Celula **matriz, int linhas, int colunas);
 void printaSoma(Celula **matriz, int linhas, int colunas);
 void printaQtdCaminhos(Celula **matriz, int linhas, int colunas);
 void printaDirecao(Celula **matriz, int linhas, int colunas);
-
+void printaMatrizVisitado(Celula **matriz,int linhas, int colunas);
 Celula **inicializaMatriz(Celula **matriz, int linhas, int colunas);
 
 #endif
