@@ -14,7 +14,7 @@
 typedef struct Celula{
     int valor;
     int somaMinima;
-    int qtdCaminhos;
+    unsigned long long int qtdCaminhos;
     int posicaoLinha;
     int posicaoColuna;
     bool visitado;

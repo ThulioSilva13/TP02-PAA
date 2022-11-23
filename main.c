@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
             printf("\n\nSoma Minima = %d\n", somaMinima(matriz, numLinhas, numColunas));
 
-            printf("\n\nQuantidade Caminhos = %d\n", qtdCaminhos(matriz, numLinhas, numColunas));
+            printf("\n\nQuantidade Caminhos = %llu\n", qtdCaminhos(matriz, numLinhas, numColunas));
 
             //printaSoma(matriz,numLinhas,numColunas);
             //printaDirecao(matriz,numLinhas,numColunas);

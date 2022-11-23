@@ -6,8 +6,8 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
     // começar da posição onde quer chegar => de tras pra frente
     // se desceria, olho pra cima
     // se iria pra direita, olho pela esquerda
-    clock_t inicio = clock();
-    double tempo = 0.0;
+    clock_t inicioSomaMinima = clock();
+    double tempoSomaMinima = 0.0;
     bool verificaCima;
     bool verificaEsquerda;
 
@@ -62,16 +62,16 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
         
         }
     }
-    clock_t fim = clock();
-    tempo += (double)(fim - inicio) / CLOCKS_PER_SEC;
-    printf("\n");
-    printf("Tempo de execução: %f", tempo);
+    clock_t fimSomaMinima = clock();
+    tempoSomaMinima += (double)(fimSomaMinima - inicioSomaMinima) / CLOCKS_PER_SEC;
+    printf("\n\nTempo de execução da soma mínima: %f", tempoSomaMinima);
     return matriz[0][0].somaMinima;
 }
  
 
-int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
-
+unsigned long long int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
+    clock_t inicioQuantidadeCaminhos = clock();
+    double tempoQuantidadeCaminhos = 0.0;
     for (int i=numLinhas-1;i>=0;i--){
         for (int j=numColunas-1;j>=0;j--){
 
@@ -117,6 +117,9 @@ int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
             }  
         }
     }
+    clock_t fimQuantidadeCaminhos = clock();
+    tempoQuantidadeCaminhos += (double)(fimQuantidadeCaminhos - inicioQuantidadeCaminhos) / CLOCKS_PER_SEC;
+    printf("\nTempo de execução da Quantidade de caminhos: %f", tempoQuantidadeCaminhos);
     return matriz[0][0].qtdCaminhos;
 }
 

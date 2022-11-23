@@ -52,10 +52,10 @@ void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
         for ( j = 0; j < colunas; j++){
             printf("%s", matriz[i][j].cor);
             if (matriz[i][j].qtdCaminhos >= 0 && matriz[i][j].qtdCaminhos  < 10){
-                printf(" %d ", matriz[i][j].qtdCaminhos );
+                printf(" %llu ", matriz[i][j].qtdCaminhos );
             }
             else{
-                printf("%d ", matriz[i][j].qtdCaminhos);
+                printf("%llu ", matriz[i][j].qtdCaminhos);
             }
         } 
     }
