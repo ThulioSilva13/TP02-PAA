@@ -7,7 +7,6 @@ void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valo
     matriz[posicaoLinha][posicaoColuna].qtdCaminhos = 0; 
     matriz[posicaoLinha][posicaoColuna].posicaoLinha = posicaoLinha+1;
     matriz[posicaoLinha][posicaoColuna].posicaoColuna = posicaoColuna+1;
-    matriz[posicaoLinha][posicaoColuna].direcao = 'x';
     matriz[posicaoLinha][posicaoColuna].visitado = false;
     strcpy(matriz[posicaoLinha][posicaoColuna].cor, ANSI_COLOR_DEFAULT);
 }
@@ -83,7 +82,6 @@ void printaDirecao(Celula **matriz, int linhas, int colunas){
         printf("\n");
         for ( j = 0; j < colunas; j++){
             printf("%s", matriz[i][j].cor);
-            printf("%c ", matriz[i][j].direcao);
         }  
     }
     printf("\n");

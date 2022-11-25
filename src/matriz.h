@@ -18,7 +18,6 @@ typedef struct Celula{
     int posicaoLinha;
     int posicaoColuna;
     bool visitado;
-    char direcao; 
     char cor[12];
 }Celula;
 

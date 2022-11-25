@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
 #include "./src/lerArquivo.h"
 #include "./src/matriz.h"
 #include "./src/progDinamica.h"
@@ -58,6 +59,8 @@ int main(int argc, char **argv)
             printf("\n\nSoma Minima = %d\n", somaMinima(matriz, numLinhas, numColunas));
 
             printf("\n\nQuantidade Caminhos = %llu\n", qtdCaminhos(matriz, numLinhas, numColunas));
+
+            procuraCaminho(matriz, numLinhas, numColunas);
 
             //printaSoma(matriz,numLinhas,numColunas);
             //printaDirecao(matriz,numLinhas,numColunas);

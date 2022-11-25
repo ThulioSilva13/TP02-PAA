@@ -26,16 +26,10 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
                 // pra cima
                 if (matriz[i-1][j].somaMinima == 0){
                     matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima;
-                    matriz[i-1][j].direcao = 'b';
                 }
                 else{
                     if (matriz[i-1][j].somaMinima > matriz[i-1][j].valor + matriz[i][j].somaMinima){
                         matriz[i-1][j].somaMinima = matriz[i-1][j].valor + matriz[i][j].somaMinima; 
-                        matriz[i-1][j].direcao = 'b';
-                    }
-
-                    if(matriz[i-1][j].somaMinima == matriz[i-1][j].valor + matriz[i][j].somaMinima){
-                        matriz[i-1][j].direcao = 'x';
                     }
                 }
             }
@@ -44,18 +38,11 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
                 //pra esquerda
                 if (matriz[i][j-1].somaMinima == 0){
                     matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-                    matriz[i][j-1].direcao = 'd';
                 }
                 else{
                     if (matriz[i][j-1].somaMinima > matriz[i][j-1].valor + matriz[i][j].somaMinima){
                         matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
-                        matriz[i][j-1].direcao = 'd';
                     }
-
-                    if (matriz[i][j-1].somaMinima == matriz[i][j-1].valor + matriz[i][j].somaMinima){
-                        matriz[i][j-1].direcao = 'x';
-                    }
-                    
                 }
                 matriz[i][j].visitado = true;
             }
@@ -130,5 +117,112 @@ bool verificaPosicao(Celula **matriz, int numLinhas, int numColunas,int x, int y
 		return true;
 	} 
 	return false;
+}
+
+void procuraCaminho(Celula **matriz, int numLinhas, int numColunas) {
+
+	TipoPilha pilha;
+    fpVazia(&pilha);
+
+	procurar(matriz, numLinhas, numColunas, 0, 0, &pilha); 
+
+    //invertePilha(&pilha);
+
+    //imprimePilhaInvertida(&pilha);
+
+	return;
+}
+
+void procurar(Celula **matriz, int numLinhas, int numColunas, int x, int y, TipoPilha* pilha)
+{
+
+    //TipoItem item;
+    printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+
+
+    if ((x == numLinhas - 1) && y== numColunas-1) {
+        return;
+    }
+
+    // se só tem como andar para baixo
+    else if ((x != numLinhas - 1) && y== numColunas-1) {
+        procurar(matriz, numLinhas, numColunas, x+1, y, pilha); 
+    }
+
+    // se só tem como andar para direita
+    else if ((x == numLinhas - 1) && y!= numColunas-1) {
+        procurar(matriz, numLinhas, numColunas, x, y+1, pilha); 
+    }
+
+    else{
+        if (matriz[x][y+1].somaMinima == matriz[x+1][y].somaMinima) {
+            // chama pra baixo
+            printf("\n");
+            printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+            procurar(matriz, numLinhas, numColunas, x + 1, y , pilha);
+
+            //chama pra direita
+            printf("\n");
+            printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+            procurar(matriz, numLinhas, numColunas, x, y + 1, pilha);
+
+        }
+
+        else if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
+            procurar(matriz, numLinhas, numColunas, x+1, y, pilha);   
+		        
+        } else {
+            procurar(matriz, numLinhas, numColunas, x, y+1, pilha);   
+        }
+    }
+
+    
+
+
+
+
+
+	
+	// // Verifica se a posição está dentro da matriz
+	// if (verificaPosicao(matriz, numLinhas, numColunas, x, y) == true) {
+        
+    //     //chegou na ultima posição do caminho => encontrou um caminho
+	// 	if ((x == numLinhas - 1) && y== numColunas-1) {
+	// 		item.celulaMatriz = matriz[x][y];		
+
+	// 		strcpy(matriz[x][y].cor, ANSI_COLOR_GREEN);
+	// 		empilha(item , pilha);
+	// 		return;
+	// 	} 
+
+	// 	strcpy(matriz[x][y].cor, ANSI_COLOR_GREEN);
+		
+	// 	item.celulaMatriz = matriz[x][y];
+	// 	empilha(item,pilha);
+
+    //     // se só tem como andar para baixo
+    //     if ((x != numLinhas - 1) && y== numColunas-1) {
+    //         procurar(matriz, numLinhas, numColunas, x+1, y, pilha);
+    //     }
+
+    //     // se só tem como andar para esquerda
+    //     else if ((x == numLinhas - 1) && y!= numColunas-1){
+    //         procurar(matriz, numLinhas, numColunas, x, y+1, pilha);
+    //     }
+
+    //     // se tem como andar pra esquerda e para direita => ir para o menor
+    //     else {
+    //         if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
+    //             procurar(matriz, numLinhas, numColunas, x+1, y, pilha);
+		        
+    //         } else {
+    //             procurar(matriz, numLinhas, numColunas, x, y+1, pilha);     
+    //         }
+    //     }
+
+	// 	return;
+	// }
+
+	return;
 }
             
