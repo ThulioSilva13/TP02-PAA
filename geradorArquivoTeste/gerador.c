@@ -1,5 +1,3 @@
-
-
 #include "galaxia.h"
 
 void menu(){
