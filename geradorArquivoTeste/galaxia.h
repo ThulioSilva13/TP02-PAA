@@ -18,5 +18,9 @@ void printa_matriz(Elemento **matriz, int linhas, int colunas);
 void libera_matriz(Elemento **matriz, int linhas);
 
 void preenche_aleatoriamente(Elemento **matriz, int linhas, int colunas);
+void preenche_mesmonumero(Elemento **matriz, int linhas, int colunas);
+void preenche_unico(Elemento **matriz, int linhas, int colunas);
+
+bool verificaPosicao(Elemento **matriz, int numLinhas, int numColunas,int x, int y);
 
 void printa_arquivo(Elemento **matriz, int linhas, int colunas);
