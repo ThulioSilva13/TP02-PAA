@@ -52,7 +52,7 @@ void printaSomaMinima(Celula **matriz, int linhas, int colunas){
     for ( i = 0; i < linhas; i++){
         printf("\n");
         for ( j = 0; j < colunas; j++){
-            //printf("%s", matriz[i][j].cor);
+            printf("%s", matriz[i][j].cor);
             if (matriz[i][j].somaMinima >= 0 && matriz[i][j].somaMinima < 10){
                 printf(" %d ", matriz[i][j].somaMinima);
             }
@@ -69,7 +69,7 @@ void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
     for ( i = 0; i < linhas; i++){
         printf("\n");
         for ( j = 0; j < colunas; j++){
-            //printf("%s", matriz[i][j].cor);
+            printf("%s", matriz[i][j].cor);
             if (matriz[i][j].qtdCaminhos >= 0 && matriz[i][j].qtdCaminhos  < 10){
                 printf(" %d ", matriz[i][j].qtdCaminhos );
             }

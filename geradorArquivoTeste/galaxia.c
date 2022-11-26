@@ -1,13 +1,11 @@
 #include "galaxia.h"
 
-void insere_matriz(Elemento **matriz, int posicaoLinha, int posicaoColuna, int valor)
-{
+void insere_matriz(Elemento **matriz, int posicaoLinha, int posicaoColuna, int valor){
     matriz[posicaoLinha][posicaoColuna].valor = valor;
     strcpy(matriz[posicaoLinha][posicaoColuna].cor, ANSI_COLOR_DEFAULT);
 }
 
-void printa_matriz(Elemento **matriz, int linhas, int colunas)
-{
+void printa_matriz(Elemento **matriz, int linhas, int colunas){
     int i, j;
     for ( i = 0; i < linhas; i++){
         printf("\n");
@@ -25,16 +23,14 @@ void printa_matriz(Elemento **matriz, int linhas, int colunas)
     printf("%s", ANSI_COLOR_DEFAULT);
 }
 
-void libera_matriz(Elemento **matriz, int linha)
-{
+void libera_matriz(Elemento **matriz, int linha){
     int i;
     for(i = 0; i < linha; i++)
         free(matriz[i]);
     free(matriz);
 }
 
-void preenche_aleatoriamente(Elemento **matriz, int linhas, int colunas)
-{
+void preenche_aleatoriamente(Elemento **matriz, int linhas, int colunas){
     int i, j, n;
     srand(time(NULL));
     for (i = 0; i < linhas; i++){
@@ -121,8 +117,7 @@ void preenche_unico(Elemento **matriz, int linhas, int colunas){
     }
 }
 
-bool verificaPosicao(Elemento **matriz, int numLinhas, int numColunas,int x, int y)
-{
+bool verificaPosicao(Elemento **matriz, int numLinhas, int numColunas,int x, int y){
 	if ((x >= 0 && x < numLinhas) && (y >= 0 && y < numColunas) &&
 	    (matriz[x][y].visitado == false)) {	
 		return true;
@@ -130,8 +125,8 @@ bool verificaPosicao(Elemento **matriz, int numLinhas, int numColunas,int x, int
 	return false;
 }
 
-void printa_arquivo(Elemento **matriz, int linhas, int colunas)
-{
+void printa_arquivo(Elemento **matriz, int linhas, int colunas){
+    
     printf("\n==== SALVAR EM ARQUIVO =====\n");
 
     FILE *arquivo;
