@@ -5,7 +5,7 @@
 int somaMinima(Celula **matriz, int numLinhas, int numColunas);
 int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas);
 bool verificaPosicao(Celula **matriz, int numLinhas, int numColunas,int x, int y);
-void procuraCaminho(Celula **matriz, int numLinhas, int numColunas, int qtdCaminhos);
-void procurar(Celula **matriz, int numLinhas, int numColunas, 
-int x, int y, Celula ***caminhos, int linhas, int colunas);
+void mostraUmCaminho(Celula **matriz, int numLinhas, int numColunas, int x, int y);
+void mostraTodosCaminhos(Celula **matriz, int numLinhas, int numColunas, int qtdCaminhos);
+void procurarTodos(Celula **matriz, int numLinhas, int numColunas, int x, int y);
 

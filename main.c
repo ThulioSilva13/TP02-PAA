@@ -53,24 +53,44 @@ int main(int argc, char **argv)
                 }
             }  
 
-            printaMatriz(matriz,numLinhas,numColunas);
+            //printaMatriz(matriz,numLinhas,numColunas);
             
+            printf("\nSoma Minima = %d\n", somaMinima(matriz, numLinhas, numColunas));
 
-            printf("\n\nSoma Minima = %d\n", somaMinima(matriz, numLinhas, numColunas));
-
-            printaSoma(matriz,numLinhas,numColunas);
+            //printaSoma(matriz,numLinhas,numColunas);
 
             int qtd =  qtdCaminhos(matriz, numLinhas, numColunas);
 
-            printf("\n\nQuantidade Caminhos = %d\n", qtd);
+            printf("\nQuantidade de Caminhos = %d\n", qtd);
 
-            procuraCaminho(matriz, numLinhas, numColunas, qtd);
-
-            
-            //printaDirecao(matriz,numLinhas,numColunas);
             //printaQtdCaminhos(matriz,numLinhas,numColunas);
-            //printaMatrizVisitado(matriz,numLinhas,numColunas);
+
+            if (qtd==1){
+                printf("\n= ");
+                mostraUmCaminho(matriz, numLinhas, numColunas, 0, 0);
+                printaMatriz(matriz,numLinhas,numColunas);
+            }
+
+            else{
+                int monstrarCaminhos;
+                printf("\n1) Apresentar um dos caminhos com custo mínimo");
+                printf("\n2) Apresentar todos caminhos com custo mínimo");
+                printf("\n3) Voltar para o menu ");
+                printf("\nEscolha: ");
+                scanf("%d",&monstrarCaminhos);
+
+                if (monstrarCaminhos == 1){
+                    printf("\n= ");
+                    mostraUmCaminho(matriz, numLinhas, numColunas, 0, 0);
+                }
+
+                if (monstrarCaminhos == 2){
+                    printf("\n");
+                    mostraTodosCaminhos(matriz, numLinhas, numColunas, qtd);
+                }
+            }
             
+  
         default:
             break;
         }

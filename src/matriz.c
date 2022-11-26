@@ -1,6 +1,25 @@
 #include "matriz.h"
 #include <limits.h>
 
+Celula **inicializaMatriz(int linhas, int colunas){
+    int i;
+    Celula **matriz;
+    matriz = (Celula **)malloc(sizeof(Celula *)*linhas);
+
+    if( matriz == NULL){
+        printf("Memoria insuficiente.\n");
+        return NULL;
+    }
+    for (i=0; i < linhas; i++){
+        matriz[i] = (Celula *)malloc(sizeof(Celula)*colunas);
+        if( matriz[i] == NULL){
+            printf("Memoria insuficiente.\n");
+            return NULL;
+        }
+    }
+    return matriz;
+}
+
 void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valor){
     matriz[posicaoLinha][posicaoColuna].valor = valor;
     matriz[posicaoLinha][posicaoColuna].somaMinima = 0; 
@@ -12,6 +31,7 @@ void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valo
 
 void printaMatriz(Celula **matriz, int linhas, int colunas){
     int i, j;
+    printf("\n");
     for ( i = 0; i < linhas; i++){
         printf("\n");
         for ( j = 0; j < colunas; j++){
@@ -24,14 +44,15 @@ void printaMatriz(Celula **matriz, int linhas, int colunas){
             }
         }  
     }
+    printf("%s", ANSI_COLOR_DEFAULT);
 }
 
-void printaSoma(Celula **matriz, int linhas, int colunas){
+void printaSomaMinima(Celula **matriz, int linhas, int colunas){
     int i, j;
     for ( i = 0; i < linhas; i++){
         printf("\n");
         for ( j = 0; j < colunas; j++){
-            printf("%s", matriz[i][j].cor);
+            //printf("%s", matriz[i][j].cor);
             if (matriz[i][j].somaMinima >= 0 && matriz[i][j].somaMinima < 10){
                 printf(" %d ", matriz[i][j].somaMinima);
             }
@@ -48,7 +69,7 @@ void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
     for ( i = 0; i < linhas; i++){
         printf("\n");
         for ( j = 0; j < colunas; j++){
-            printf("%s", matriz[i][j].cor);
+            //printf("%s", matriz[i][j].cor);
             if (matriz[i][j].qtdCaminhos >= 0 && matriz[i][j].qtdCaminhos  < 10){
                 printf(" %d ", matriz[i][j].qtdCaminhos );
             }
@@ -60,34 +81,3 @@ void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
     printf("\n"); 
 }
 
-void printaDirecao(Celula **matriz, int linhas, int colunas){
-    int i, j;
-    for ( i = 0; i < linhas; i++){
-        printf("\n");
-        for ( j = 0; j < colunas; j++){
-            printf("%s", matriz[i][j].cor);
-        }  
-    }
-    printf("\n");
-}
-
-Celula **inicializaMatriz(int linhas, int colunas){
-    printf("\nentra inicializa matriz");
-    int i;
-    Celula **matriz;
-    matriz = (Celula **)malloc(sizeof(Celula *)*linhas);
-
-    if( matriz == NULL){
-        printf("Memoria insuficiente.\n");
-        return NULL;
-    }
-    for (i=0; i < linhas; i++){
-        matriz[i] = (Celula *)malloc(sizeof(Celula)*colunas);
-        if( matriz[i] == NULL){
-            printf("Memoria insuficiente.\n");
-            return NULL;
-        }
-    }
-    printf("\nfinaliza inicializa matriz");
-    return matriz;
-}

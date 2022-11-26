@@ -9,7 +9,7 @@
 
 typedef struct Elemento {
     int valor;
-    bool visitado; 
+    bool visitado;
     char cor[12];
 } Elemento;
 

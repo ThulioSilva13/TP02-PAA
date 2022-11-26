@@ -20,11 +20,10 @@ typedef struct Celula{
     char cor[12];
 }Celula;
 
+Celula **inicializaMatriz(int linhas, int colunas);
 void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valor);
 void printaMatriz(Celula **matriz, int linhas, int colunas);
 void printaSoma(Celula **matriz, int linhas, int colunas);
 void printaQtdCaminhos(Celula **matriz, int linhas, int colunas);
-void printaDirecao(Celula **matriz, int linhas, int colunas);
-Celula **inicializaMatriz(int linhas, int colunas);
 
 #endif

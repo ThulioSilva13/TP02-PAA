@@ -4,8 +4,8 @@ void menu(){
 
     printf("\n\n=========== MENU ===========");
     printf("\n1) Números aleatórios");
-    printf("\n2) Todos os caminhos com mesma soma");
-    printf("\n3) Um único caminho com a soma mínima");
+    printf("\n2) Todos os caminhos com mesmo custo");
+    printf("\n3) Um único caminho com custo mínimo");
     printf("\n4) Encerrar");
     printf("\nEscolha: ");
 }

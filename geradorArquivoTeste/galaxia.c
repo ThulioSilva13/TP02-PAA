@@ -40,7 +40,7 @@ void preenche_aleatoriamente(Elemento **matriz, int linhas, int colunas)
     for (i = 0; i < linhas; i++){
         for (j = 0; j < colunas; j++){
             if (matriz[i][j].valor == 0){ 
-                insere_matriz(matriz, i, j, (rand()%33) + 1); //gerar numero aleatorio entre 1 e 9;
+                insere_matriz(matriz, i, j, (rand()%33) + 1); //gerar numero aleatorio entre 1 e 34;
             }
         }
     }
@@ -62,7 +62,7 @@ void preenche_mesmonumero(Elemento **matriz, int linhas, int colunas){
 void preenche_unico(Elemento **matriz, int linhas, int colunas){
 
     srand(time(NULL));
-    int num =  (rand()%8) + 2; //maior numero que faz parte do caminho_minimo (2 a 8)
+    int num =  (rand()%8) + 2; //maior numero que faz parte do caminho_minimo (2 a 10)
     
     int x = 0; 
     int y = 0; 
@@ -115,7 +115,7 @@ void preenche_unico(Elemento **matriz, int linhas, int colunas){
     for (int i = 0; i < linhas; i++){
         for (int j = 0; j < colunas; j++){
             if (matriz[i][j].valor == 0){ 
-                insere_matriz(matriz, i, j, (rand()%30) + num); //gerar numero aleatorio entre num e 30+num;
+                insere_matriz(matriz, i, j, (rand()%30) + num+2); //gerar numero aleatorio entre num+2 e 30+(num+2);
             }
         }
     }

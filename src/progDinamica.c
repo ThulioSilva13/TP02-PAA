@@ -1,7 +1,7 @@
 #include "progDinamica.h"
 #include <time.h>
+
 int somaMinima(Celula **matriz, int numLinhas, int numColunas){
-    // achar soma mínima (Germano falou que essa parte é mais fácil fazendo iterativo)
 
     // começar da posição onde quer chegar => de tras pra frente
     // se desceria, olho pra cima
@@ -68,7 +68,6 @@ int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
 
             //se está na ultima linha só tem como vir da direita
             //entao a qtd de caminhos pra chegar nela é a qtd de caminhos pra chegar na da direita
-           
             else if (i==numLinhas-1 && j!=numColunas-1){
                 matriz[i][j].qtdCaminhos += matriz[i][j+1].qtdCaminhos;
             }
@@ -118,67 +117,96 @@ bool verificaPosicao(Celula **matriz, int numLinhas, int numColunas,int x, int y
 	return false;
 }
 
-void procuraCaminho(Celula **matriz, int numLinhas, int numColunas, int qtdCaminhos) {
+void mostraUmCaminho(Celula **matriz, int numLinhas, int numColunas, int x, int y){
+    
 
-    printf("\n%d", qtdCaminhos);
-
-    printf("\nentra procuraCaminho");
-    Celula **caminhos = inicializaMatriz(qtdCaminhos,(numLinhas+numColunas)-1);
-    printf("\ninicializa caminhos");
-    printf("qtd colunas = %d",(numLinhas+numColunas)-1);
-
-    int linha = 0;
-    int coluna = 0;
-    printf("\ninicializa caminhos");
-	procurar(matriz, numLinhas, numColunas, 0, 0, &caminhos, linha, coluna); 
-
-	return;
-}
-
-void procurar(Celula **matriz, int numLinhas, int numColunas, int x, int y, Celula ***caminhos, int linha, int coluna)
-{
-    printf("\nentrar procurar");
-    printf("\n coluna %d", coluna);
-    *caminhos[linha][coluna]= matriz[x][y];
-    printf("\n(%d, %d) -> ", caminhos[linha][coluna]->posicaoLinha, caminhos[linha][coluna]->posicaoColuna);
-    printf("\n(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-
-
-    if (((x == numLinhas - 1) && (y== numColunas-1)) ||
-        ((linha == numLinhas - 1) && (coluna == numColunas-1))){
+    if ((x == numLinhas - 1) && (y== numColunas-1)){
+        printf("(%d, %d)", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+        strcpy(matriz[x][y].cor,ANSI_COLOR_GREEN);
         return;
     }
 
+    printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+    strcpy(matriz[x][y].cor,ANSI_COLOR_GREEN);
+
     // se só tem como andar para baixo
-    else if ((x != numLinhas - 1) && y== numColunas-1) {
-        procurar(matriz, numLinhas, numColunas, x+1, y, caminhos,linha, coluna+1); 
+    if ((x != numLinhas - 1) && y== numColunas-1) {
+        mostraUmCaminho(matriz, numLinhas, numColunas, x+1, y); 
     }
 
     // se só tem como andar para direita
     else if ((x == numLinhas - 1) && y!= numColunas-1) {
-        procurar(matriz, numLinhas, numColunas, x, y+1, caminhos,linha, coluna+1); 
+        mostraUmCaminho(matriz, numLinhas, numColunas, x, y+1); 
     }
 
+    else{
+        if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
+            mostraUmCaminho(matriz, numLinhas, numColunas, x+1, y);   
+		        
+        } else {
+            mostraUmCaminho(matriz, numLinhas, numColunas, x, y+1);   
+        }
+    }    
+	return;
+}
+
+void mostraTodosCaminhos(Celula **matriz, int numLinhas, int numColunas, int qtdCaminhos){
+    //printf("\n%d", qtdCaminhos);
+
+    //printf("\nentra procuraCaminho");
+    //Celula **caminhos = inicializaMatriz(qtdCaminhos,(numLinhas+numColunas)-1);
+    //printf("\ninicializa caminhos");
+    //printf("qtd colunas = %d",(numLinhas+numColunas)-1);
+
+    //int linha = 0;
+    //int coluna = 0;
+    //printf("\ninicializa caminhos");
+	procurarTodos(matriz, numLinhas, numColunas, 0, 0); 
+
+	return;
+}
+void procurarTodos(Celula **matriz, int numLinhas, int numColunas, int x, int y){
+    
+    //printf("\nentrar procurar");
+    //printf("\n coluna %d", coluna);
+    //*caminhos[linha][coluna]= matriz[x][y];
+    //printf("\n(%d, %d) -> ", caminhos[linha][coluna]->posicaoLinha, caminhos[linha][coluna]->posicaoColuna);
+
+    if ((x == numLinhas - 1) && (y== numColunas-1)){
+        printf("(%d, %d) ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+        return;
+    }
+
+    printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+    // se só tem como andar para baixo
+    if ((x != numLinhas - 1) && y== numColunas-1) {
+        procurarTodos(matriz, numLinhas, numColunas, x+1, y); 
+    }
+    // se só tem como andar para direita
+    else if ((x == numLinhas - 1) && y!= numColunas-1) {
+        procurarTodos(matriz, numLinhas, numColunas, x, y+1); 
+    }
     else{
         if (matriz[x][y+1].somaMinima == matriz[x+1][y].somaMinima) {
             // chama pra baixo
             printf("\n");
-            //printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-            procurar(matriz, numLinhas, numColunas, x + 1, y, caminhos,linha, coluna+1);
+            printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+            procurarTodos(matriz, numLinhas, numColunas, x + 1, y);
 
             //chama pra direita
             printf("\n");
-            //printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-            procurar(matriz, numLinhas, numColunas, x, y + 1, caminhos,linha, coluna+1);
+            printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+            procurarTodos(matriz, numLinhas, numColunas, x, y + 1);
 
         }
 
         else if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
-            procurar(matriz, numLinhas, numColunas, x+1, y, caminhos,linha, coluna+1);   
+            procurarTodos(matriz, numLinhas, numColunas, x+1, y);   
 		        
         } else {
-            procurar(matriz, numLinhas, numColunas, x, y+1, caminhos,linha, coluna+1);   
+            procurarTodos(matriz, numLinhas, numColunas, x, y+1);   
         }
     }    
 	return;
-}   
+}
+  
