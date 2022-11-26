@@ -25,5 +25,6 @@ void insereMatriz(Celula **matriz, int posicaoLinha, int posicaoColuna, int valo
 void printaMatriz(Celula **matriz, int linhas, int colunas);
 void printaSoma(Celula **matriz, int linhas, int colunas);
 void printaQtdCaminhos(Celula **matriz, int linhas, int colunas);
+void libera_matriz(Celula **matriz, int linha);
 
 #endif

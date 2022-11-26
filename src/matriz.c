@@ -81,3 +81,11 @@ void printaQtdCaminhos(Celula **matriz, int linhas, int colunas){
     printf("\n"); 
 }
 
+void libera_matriz(Celula **matriz, int linha)
+{
+    int i;
+    for(i = 0; i < linha; i++)
+        free(matriz[i]);
+    free(matriz);
+}
+

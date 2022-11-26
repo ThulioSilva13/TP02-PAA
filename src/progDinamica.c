@@ -6,8 +6,10 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
     // começar da posição onde quer chegar => de tras pra frente
     // se desceria, olho pra cima
     // se iria pra direita, olho pela esquerda
-    clock_t inicioSomaMinima = clock();
-    double tempoSomaMinima = 0.0;
+
+    //clock_t inicioSomaMinima = clock();
+    //double tempoSomaMinima = 0.0;
+
     bool verificaCima;
     bool verificaEsquerda;
 
@@ -48,16 +50,18 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
         
         }
     }
-    clock_t fimSomaMinima = clock();
-    tempoSomaMinima += (double)(fimSomaMinima - inicioSomaMinima) / CLOCKS_PER_SEC;
-    //printf("\n\nTempo de execução da soma mínima: %f", tempoSomaMinima);
+    //clock_t fimSomaMinima = clock();
+    //tempoSomaMinima = (double)(fimSomaMinima - inicioSomaMinima) / CLOCKS_PER_SEC;
+    //printf("\nTempo de execução da soma mínima: %f", tempoSomaMinima);
     return matriz[0][0].somaMinima;
 }
  
 
 int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
-    clock_t inicioQuantidadeCaminhos = clock();
-    double tempoQuantidadeCaminhos = 0.0;
+
+    //clock_t inicioQuantidadeCaminhos = clock();
+    //double tempoQuantidadeCaminhos = 0.0;
+
     for (int i=numLinhas-1;i>=0;i--){
         for (int j=numColunas-1;j>=0;j--){
 
@@ -102,9 +106,12 @@ int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
             }  
         }
     }
-    clock_t fimQuantidadeCaminhos = clock();
-    tempoQuantidadeCaminhos += (double)(fimQuantidadeCaminhos - inicioQuantidadeCaminhos) / CLOCKS_PER_SEC;
-    //printf("\nTempo de execução da Quantidade de caminhos: %f", tempoQuantidadeCaminhos);
+
+    //clock_t fimQuantidadeCaminhos = clock();
+    //tempoQuantidadeCaminhos = (double)(fimQuantidadeCaminhos - inicioQuantidadeCaminhos) / CLOCKS_PER_SEC;
+    //printf("\nTempo de execução da Quantidade de caminhos: %f\n", tempoQuantidadeCaminhos);
+    
+
     return matriz[0][0].qtdCaminhos;
 }
 
@@ -117,9 +124,8 @@ bool verificaPosicao(Celula **matriz, int numLinhas, int numColunas,int x, int y
 	return false;
 }
 
-void mostraUmCaminho(Celula **matriz, int numLinhas, int numColunas, int x, int y){
+void mostrarUmCaminho(Celula **matriz, int numLinhas, int numColunas, int x, int y){
     
-
     if ((x == numLinhas - 1) && (y== numColunas-1)){
         printf("(%d, %d)", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
         strcpy(matriz[x][y].cor,ANSI_COLOR_GREEN);
@@ -131,47 +137,27 @@ void mostraUmCaminho(Celula **matriz, int numLinhas, int numColunas, int x, int 
 
     // se só tem como andar para baixo
     if ((x != numLinhas - 1) && y== numColunas-1) {
-        mostraUmCaminho(matriz, numLinhas, numColunas, x+1, y); 
+        mostrarUmCaminho(matriz, numLinhas, numColunas, x+1, y); 
     }
 
     // se só tem como andar para direita
     else if ((x == numLinhas - 1) && y!= numColunas-1) {
-        mostraUmCaminho(matriz, numLinhas, numColunas, x, y+1); 
+        mostrarUmCaminho(matriz, numLinhas, numColunas, x, y+1); 
     }
 
     else{
         if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
-            mostraUmCaminho(matriz, numLinhas, numColunas, x+1, y);   
+            mostrarUmCaminho(matriz, numLinhas, numColunas, x+1, y);   
 		        
         } else {
-            mostraUmCaminho(matriz, numLinhas, numColunas, x, y+1);   
+            mostrarUmCaminho(matriz, numLinhas, numColunas, x, y+1);   
         }
     }    
 	return;
 }
 
-void mostraTodosCaminhos(Celula **matriz, int numLinhas, int numColunas, int qtdCaminhos){
-    //printf("\n%d", qtdCaminhos);
-
-    //printf("\nentra procuraCaminho");
-    //Celula **caminhos = inicializaMatriz(qtdCaminhos,(numLinhas+numColunas)-1);
-    //printf("\ninicializa caminhos");
-    //printf("qtd colunas = %d",(numLinhas+numColunas)-1);
-
-    //int linha = 0;
-    //int coluna = 0;
-    //printf("\ninicializa caminhos");
-	procurarTodos(matriz, numLinhas, numColunas, 0, 0); 
-
-	return;
-}
-void procurarTodos(Celula **matriz, int numLinhas, int numColunas, int x, int y){
+void mostrarTodosCaminhos(Celula **matriz, int numLinhas, int numColunas, int x, int y){
     
-    //printf("\nentrar procurar");
-    //printf("\n coluna %d", coluna);
-    //*caminhos[linha][coluna]= matriz[x][y];
-    //printf("\n(%d, %d) -> ", caminhos[linha][coluna]->posicaoLinha, caminhos[linha][coluna]->posicaoColuna);
-
     if ((x == numLinhas - 1) && (y== numColunas-1)){
         printf("(%d, %d) ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
         return;
@@ -180,31 +166,31 @@ void procurarTodos(Celula **matriz, int numLinhas, int numColunas, int x, int y)
     printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
     // se só tem como andar para baixo
     if ((x != numLinhas - 1) && y== numColunas-1) {
-        procurarTodos(matriz, numLinhas, numColunas, x+1, y); 
+        mostrarTodosCaminhos(matriz, numLinhas, numColunas, x+1, y); 
     }
     // se só tem como andar para direita
     else if ((x == numLinhas - 1) && y!= numColunas-1) {
-        procurarTodos(matriz, numLinhas, numColunas, x, y+1); 
+        mostrarTodosCaminhos(matriz, numLinhas, numColunas, x, y+1); 
     }
     else{
         if (matriz[x][y+1].somaMinima == matriz[x+1][y].somaMinima) {
             // chama pra baixo
             printf("\n");
             printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-            procurarTodos(matriz, numLinhas, numColunas, x + 1, y);
+            mostrarTodosCaminhos(matriz, numLinhas, numColunas, x + 1, y);
 
             //chama pra direita
             printf("\n");
             printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-            procurarTodos(matriz, numLinhas, numColunas, x, y + 1);
+            mostrarTodosCaminhos(matriz, numLinhas, numColunas, x, y + 1);
 
         }
 
         else if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
-            procurarTodos(matriz, numLinhas, numColunas, x+1, y);   
+            mostrarTodosCaminhos(matriz, numLinhas, numColunas, x+1, y);   
 		        
         } else {
-            procurarTodos(matriz, numLinhas, numColunas, x, y+1);   
+            mostrarTodosCaminhos(matriz, numLinhas, numColunas, x, y+1);   
         }
     }    
 	return;

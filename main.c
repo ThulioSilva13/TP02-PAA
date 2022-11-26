@@ -19,7 +19,6 @@ int menu(int opcao)
 
 int main(int argc, char **argv)
 {
-    Celula **matriz;
     int opcao = -1;
     char **nomeArquivo;
     int numLinhas, numColunas;
@@ -29,6 +28,7 @@ int main(int argc, char **argv)
    
     while(opcao != 0)
     {
+        Celula **matriz;
         opcao = menu(opcao);
 
         switch (opcao)
@@ -44,6 +44,7 @@ int main(int argc, char **argv)
                 scanf("%s", nomeArqv);
                 *nomeArquivo = nomeArqv;               
             }
+
             if (lerArquivoPrincipal(nomeArquivo, &numLinhas,&numColunas, &matriz) == 1)
             {
                 if (numLinhas > 100 || numColunas > 100)
@@ -51,23 +52,25 @@ int main(int argc, char **argv)
                     printf("\nNumero de linhas ou colunas maiores que 100.");
                     break;
                 }
-            }  
+            } else { //arquivo não encontrado
+                break;
+            } 
 
             //printaMatriz(matriz,numLinhas,numColunas);
-            
-            printf("\nSoma Minima = %d\n", somaMinima(matriz, numLinhas, numColunas));
 
+            int custo = somaMinima(matriz, numLinhas, numColunas);
+            int qtd =  qtdCaminhos(matriz, numLinhas, numColunas);
+            
+
+            printf("\nSoma Minima = %d\n", custo);
             //printaSoma(matriz,numLinhas,numColunas);
 
-            int qtd =  qtdCaminhos(matriz, numLinhas, numColunas);
-
             printf("\nQuantidade de Caminhos = %d\n", qtd);
-
             //printaQtdCaminhos(matriz,numLinhas,numColunas);
 
             if (qtd==1){
                 printf("\n= ");
-                mostraUmCaminho(matriz, numLinhas, numColunas, 0, 0);
+                mostrarUmCaminho(matriz, numLinhas, numColunas, 0, 0);
                 printaMatriz(matriz,numLinhas,numColunas);
             }
 
@@ -81,15 +84,16 @@ int main(int argc, char **argv)
 
                 if (monstrarCaminhos == 1){
                     printf("\n= ");
-                    mostraUmCaminho(matriz, numLinhas, numColunas, 0, 0);
+                    mostrarUmCaminho(matriz, numLinhas, numColunas, 0, 0);
                 }
 
                 if (monstrarCaminhos == 2){
                     printf("\n");
-                    mostraTodosCaminhos(matriz, numLinhas, numColunas, qtd);
+                    mostrarTodosCaminhos(matriz, numLinhas, numColunas, 0, 0);
                 }
             }
-            
+        
+        libera_matriz(matriz, numLinhas);
   
         default:
             break;
