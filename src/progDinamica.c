@@ -44,19 +44,18 @@ int somaMinima(Celula **matriz, int numLinhas, int numColunas){
                         matriz[i][j-1].somaMinima = matriz[i][j-1].valor + matriz[i][j].somaMinima;
                     }
                 }
-                matriz[i][j].visitado = true;
             }
         
         }
     }
     clock_t fimSomaMinima = clock();
     tempoSomaMinima += (double)(fimSomaMinima - inicioSomaMinima) / CLOCKS_PER_SEC;
-    printf("\n\nTempo de execução da soma mínima: %f", tempoSomaMinima);
+    //printf("\n\nTempo de execução da soma mínima: %f", tempoSomaMinima);
     return matriz[0][0].somaMinima;
 }
  
 
-unsigned long long int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
+int qtdCaminhos(Celula **matriz, int numLinhas, int numColunas){
     clock_t inicioQuantidadeCaminhos = clock();
     double tempoQuantidadeCaminhos = 0.0;
     for (int i=numLinhas-1;i>=0;i--){
@@ -106,7 +105,7 @@ unsigned long long int qtdCaminhos(Celula **matriz, int numLinhas, int numColuna
     }
     clock_t fimQuantidadeCaminhos = clock();
     tempoQuantidadeCaminhos += (double)(fimQuantidadeCaminhos - inicioQuantidadeCaminhos) / CLOCKS_PER_SEC;
-    printf("\nTempo de execução da Quantidade de caminhos: %f", tempoQuantidadeCaminhos);
+    //printf("\nTempo de execução da Quantidade de caminhos: %f", tempoQuantidadeCaminhos);
     return matriz[0][0].qtdCaminhos;
 }
 
@@ -119,110 +118,67 @@ bool verificaPosicao(Celula **matriz, int numLinhas, int numColunas,int x, int y
 	return false;
 }
 
-void procuraCaminho(Celula **matriz, int numLinhas, int numColunas) {
+void procuraCaminho(Celula **matriz, int numLinhas, int numColunas, int qtdCaminhos) {
 
-	TipoPilha pilha;
-    fpVazia(&pilha);
+    printf("\n%d", qtdCaminhos);
 
-	procurar(matriz, numLinhas, numColunas, 0, 0, &pilha); 
+    printf("\nentra procuraCaminho");
+    Celula **caminhos = inicializaMatriz(qtdCaminhos,(numLinhas+numColunas)-1);
+    printf("\ninicializa caminhos");
+    printf("qtd colunas = %d",(numLinhas+numColunas)-1);
 
-    //invertePilha(&pilha);
-
-    //imprimePilhaInvertida(&pilha);
+    int linha = 0;
+    int coluna = 0;
+    printf("\ninicializa caminhos");
+	procurar(matriz, numLinhas, numColunas, 0, 0, &caminhos, linha, coluna); 
 
 	return;
 }
 
-void procurar(Celula **matriz, int numLinhas, int numColunas, int x, int y, TipoPilha* pilha)
+void procurar(Celula **matriz, int numLinhas, int numColunas, int x, int y, Celula ***caminhos, int linha, int coluna)
 {
+    printf("\nentrar procurar");
+    printf("\n coluna %d", coluna);
+    *caminhos[linha][coluna]= matriz[x][y];
+    printf("\n(%d, %d) -> ", caminhos[linha][coluna]->posicaoLinha, caminhos[linha][coluna]->posicaoColuna);
+    printf("\n(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
 
-    //TipoItem item;
-    printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
 
-
-    if ((x == numLinhas - 1) && y== numColunas-1) {
+    if (((x == numLinhas - 1) && (y== numColunas-1)) ||
+        ((linha == numLinhas - 1) && (coluna == numColunas-1))){
         return;
     }
 
     // se só tem como andar para baixo
     else if ((x != numLinhas - 1) && y== numColunas-1) {
-        procurar(matriz, numLinhas, numColunas, x+1, y, pilha); 
+        procurar(matriz, numLinhas, numColunas, x+1, y, caminhos,linha, coluna+1); 
     }
 
     // se só tem como andar para direita
     else if ((x == numLinhas - 1) && y!= numColunas-1) {
-        procurar(matriz, numLinhas, numColunas, x, y+1, pilha); 
+        procurar(matriz, numLinhas, numColunas, x, y+1, caminhos,linha, coluna+1); 
     }
 
     else{
         if (matriz[x][y+1].somaMinima == matriz[x+1][y].somaMinima) {
             // chama pra baixo
             printf("\n");
-            printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-            procurar(matriz, numLinhas, numColunas, x + 1, y , pilha);
+            //printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+            procurar(matriz, numLinhas, numColunas, x + 1, y, caminhos,linha, coluna+1);
 
             //chama pra direita
             printf("\n");
-            printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
-            procurar(matriz, numLinhas, numColunas, x, y + 1, pilha);
+            //printf("(%d, %d) -> ", matriz[x][y].posicaoLinha, matriz[x][y].posicaoColuna);
+            procurar(matriz, numLinhas, numColunas, x, y + 1, caminhos,linha, coluna+1);
 
         }
 
         else if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
-            procurar(matriz, numLinhas, numColunas, x+1, y, pilha);   
+            procurar(matriz, numLinhas, numColunas, x+1, y, caminhos,linha, coluna+1);   
 		        
         } else {
-            procurar(matriz, numLinhas, numColunas, x, y+1, pilha);   
+            procurar(matriz, numLinhas, numColunas, x, y+1, caminhos,linha, coluna+1);   
         }
-    }
-
-    
-
-
-
-
-
-	
-	// // Verifica se a posição está dentro da matriz
-	// if (verificaPosicao(matriz, numLinhas, numColunas, x, y) == true) {
-        
-    //     //chegou na ultima posição do caminho => encontrou um caminho
-	// 	if ((x == numLinhas - 1) && y== numColunas-1) {
-	// 		item.celulaMatriz = matriz[x][y];		
-
-	// 		strcpy(matriz[x][y].cor, ANSI_COLOR_GREEN);
-	// 		empilha(item , pilha);
-	// 		return;
-	// 	} 
-
-	// 	strcpy(matriz[x][y].cor, ANSI_COLOR_GREEN);
-		
-	// 	item.celulaMatriz = matriz[x][y];
-	// 	empilha(item,pilha);
-
-    //     // se só tem como andar para baixo
-    //     if ((x != numLinhas - 1) && y== numColunas-1) {
-    //         procurar(matriz, numLinhas, numColunas, x+1, y, pilha);
-    //     }
-
-    //     // se só tem como andar para esquerda
-    //     else if ((x == numLinhas - 1) && y!= numColunas-1){
-    //         procurar(matriz, numLinhas, numColunas, x, y+1, pilha);
-    //     }
-
-    //     // se tem como andar pra esquerda e para direita => ir para o menor
-    //     else {
-    //         if (matriz[x][y+1].somaMinima > matriz[x+1][y].somaMinima) {
-    //             procurar(matriz, numLinhas, numColunas, x+1, y, pilha);
-		        
-    //         } else {
-    //             procurar(matriz, numLinhas, numColunas, x, y+1, pilha);     
-    //         }
-    //     }
-
-	// 	return;
-	// }
-
+    }    
 	return;
-}
-            
+}   

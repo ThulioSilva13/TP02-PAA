@@ -25,7 +25,7 @@ int lerArquivoPrincipal(char **nomeArquivo, int *l, int *c, Celula ***matriz)
     fscanf(arquivoDeEntrada, "%d %d", &linhas, &colunas);
     *l = linhas;
     *c = colunas;
-    *matriz = inicializaMatriz(*matriz,linhas,colunas);
+    *matriz = inicializaMatriz(linhas,colunas);
     
     int posicaoLinha = 0;
 
